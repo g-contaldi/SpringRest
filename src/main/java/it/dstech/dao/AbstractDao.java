@@ -23,7 +23,8 @@ public abstract class AbstractDao {
 	}
 
 	public Object update(Object obj) {
-		getSession().update(obj);
+		getSession().merge(obj);
 		return obj;
 	}
+
 }

@@ -4,18 +4,18 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Student implements Serializable {
+public class Corso implements Serializable {
 
 	/**
 	 * 
@@ -26,16 +26,12 @@ public class Student implements Serializable {
 	@GeneratedValue
 	private int id;
 
+	@Column(unique = true)
 	private String nome;
 
-	private int eta;
-
 	@JsonIgnore
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "stud_corsi", joinColumns = {
-			@JoinColumn(name = "id_student", nullable = false) }, inverseJoinColumns = {
-					@JoinColumn(name = "id_corsi", nullable = false) })
-	private List<Corso> listCorsi = new ArrayList<>();
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "listCorsi", cascade = CascadeType.ALL)
+	private List<Student> listStudents = new ArrayList<>();
 
 	public int getId() {
 		return id;
@@ -53,29 +49,20 @@ public class Student implements Serializable {
 		this.nome = nome;
 	}
 
-	public int getEta() {
-		return eta;
+	public List<Student> getListStudents() {
+		return listStudents;
 	}
 
-	public void setEta(int eta) {
-		this.eta = eta;
-	}
-
-	public List<Corso> getListCorsi() {
-		return listCorsi;
-	}
-
-	public void setListCorsi(List<Corso> listCorsi) {
-		this.listCorsi = listCorsi;
+	public void setListStudents(List<Student> listStudents) {
+		this.listStudents = listStudents;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + eta;
 		result = prime * result + id;
-		result = prime * result + ((listCorsi == null) ? 0 : listCorsi.hashCode());
+		result = prime * result + ((listStudents == null) ? 0 : listStudents.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		return result;
 	}
@@ -88,15 +75,8 @@ public class Student implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Student other = (Student) obj;
-		if (eta != other.eta)
-			return false;
+		Corso other = (Corso) obj;
 		if (id != other.id)
-			return false;
-		if (listCorsi == null) {
-			if (other.listCorsi != null)
-				return false;
-		} else if (!listCorsi.equals(other.listCorsi))
 			return false;
 		if (nome == null) {
 			if (other.nome != null)
@@ -108,7 +88,7 @@ public class Student implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Student [id=" + id + ", nome=" + nome + ", eta=" + eta + "]";
+		return "Corso [id=" + id + ", nome=" + nome + "]";
 	}
 
 }
