@@ -28,10 +28,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.httpBasic().and().authorizeRequests().antMatchers("/login", "/register").permitAll().and()
+		http.httpBasic().and().authorizeRequests().antMatchers("/login", "/register", "/getUserModel").permitAll().and()
 				.authorizeRequests().anyRequest().authenticated().antMatchers("/student/**", "/corso/**")
-				.hasAnyRole("USER", "ADMIN", "DBA").and().logout().permitAll();
-		// .and().csrf().disable();
+				.hasAnyRole("USER", "ADMIN", "DBA").and().logout().permitAll().and().csrf().disable();
 	}
 
 	@Bean
