@@ -1,4 +1,4 @@
-package it.dstech.security.service;
+package it.dstech.config.security.service;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package it.dstech.security;
+package it.dstech.config.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

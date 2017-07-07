@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import it.dstech.config.security.service.AuthService;
 import it.dstech.model.User;
-import it.dstech.security.service.AuthService;
 import it.dstech.service.UserService;
 
 @RestController
